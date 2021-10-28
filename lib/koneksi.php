@@ -1,9 +1,9 @@
 <?php 
 // definisikan koneksi ke database
 $server ="localhost";
-$username ="root";
-$password ="root";
-$database ="amikom";
+$username ="u1031236_arif_indah";
+$password ="kosonginaja";
+$database = "u1031236_arif_indah";
 // koneksi dan memilih database di server
 $koneksi = mysqli_connect($server,$username,$password,$database);
 
