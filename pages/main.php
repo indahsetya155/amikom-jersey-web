@@ -21,13 +21,13 @@
 											<img src="admin/upload/<?php echo $r['gambar'] ?>" alt="" />
 											<h2>Rp.<?php echo number_format($r['harga']) ?></h2>
 											<p><?php echo $r['nama_produk'] ?></p>
-											<a href="aksi_keranjang.php?id_produk=<?php echo $r['id_produk'];?>$harga=<?php echo $r['harga'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="aksi_keranjang.php?id_produk=<?php echo $r['id_produk'];?>&harga=<?php echo $r['harga'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
 												<h2>Rp.<?php echo number_format($r['harga']) ?></h2>
 												<p><?php echo $r['nama_produk'] ?></p>
-												<a href="aksi_keranjang.php?id_produk=<?php echo $r['id_produk'];?>$harga=<?php echo $r['harga'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="aksi_keranjang.php?id_produk=<?php echo $r['id_produk'];?>&harga=<?php echo $r['harga'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
 								</div>
