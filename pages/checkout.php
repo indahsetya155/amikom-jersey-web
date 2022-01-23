@@ -18,7 +18,7 @@ $sid = session_id();
 							<td class="image">Gambar</td>
 							<td class="description">Nama Produk</td>
 							<td class="price">Harga</td>
-							<td class="quantity">Jumlah</td>
+							<td class="quantity">Jml</td>
 							<td class="total">Sub Total</td>
 							<td></td>
 						</tr>
@@ -59,17 +59,15 @@ $sid = session_id();
 							<td colspan="2">
 								<table class="table table-condensed total-result">
 									<tr>
-										<td>Total Belanja</td>
-										<td>Rp. 200000</td>
-									</tr>
-									
-									<tr class="shipping-cost">
-										<td>Biaya Kirim</td>
-										<td>Rp. 9000</td>										
+										<td>Sub Total</td>
+										<td>Rp. </td>
 									</tr>
 									<tr>
+										<td>Biaya Kirim</td>
+										<td>Rp.</td>
+									<tr>
 										<td>Total</td>
-										<td><span>Rp. 160000</span></td>
+										<td><span>Rp.</span></td>
 									</tr>
 								</table>
 							</td>
@@ -130,15 +128,17 @@ $sid = session_id();
 							<input type="text" name="name" class="form-control" required="required" placeholder="Nomor handphone" value="<?php echo $res['no_hp']; ?>" disabled>	
 						</div>
 						<div class="form-group col-md-6">
-							<select class="form-control" disabled>
+							<select class="form-control" name="ongkir">
+								
 								<?php
 								$getKota = mysqli_query($koneksi, "select * from tbl_kota");
 								while($itemkota=mysqli_fetch_array($getKota)){
 
 								?>
-
-								
-								<option value="<?php echo $itemkota['id_kota']?>"><?php echo $itemkota['nama_kota'] ?></option>
+								<option>Pilih Tujuan Kota</option>
+								<option value="<?php echo $itemkota['id_kota']?>">
+									<?php echo $itemkota['nama_kota'] ?>
+									</option>
 							<?php } ?>
 							</select>	
 						</div>

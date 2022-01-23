@@ -10,7 +10,7 @@ $resultQuery = mysqli_num_rows($queryLogin);
 
 $result = mysqli_fetch_array($queryLogin);
 
-if($resultQuery>0){
+if($resultQuery==1){
 	session_start();
 	$_SESSION['idMember'] = $result['id_member'];
 	header('location:profil.php');

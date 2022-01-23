@@ -96,7 +96,8 @@ include "lib/koneksi.php";
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="login.php">Login</a></li> 
+								<li><a href="logout.php">Logout</a></li> 
 							</ul>
 						</div>
 					</div>
@@ -122,8 +123,7 @@ include "lib/koneksi.php";
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
 										<li><a href="selesai.php">Checkout</a></li> 
-										<li><a href="keranjang.php">Cart</a></li> 
-										<li><a href="login.php">Login</a></li> 
+										<li><a href="keranjang.php">Cart</a></li>
                                     </ul>
                                 </li> 
 								<li><a href="contact-us.html">Contact</a></li>
