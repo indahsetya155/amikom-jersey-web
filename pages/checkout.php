@@ -34,7 +34,7 @@ $sid = session_id();
 						?>
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="admin/upload/<?php echo $r['gambar'];?>" alt=""></a>
+								<a href=""><img src="admin/upload/<?php echo $r['gambar'];?>" style="height: 120px;" alt=""></a>
 							</td>
 							<td class="cart_description">
 								<h4><a href=""><?php echo $r['nama_produk'];?> </a></h4>
