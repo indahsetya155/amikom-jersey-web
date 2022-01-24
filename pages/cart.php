@@ -50,7 +50,7 @@ $sid = session_id();
 								<p class="cart_total_price">Rp. <?php echo number_format($subtotal); ?></p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href="aksi_hapus_keranjang.php?id_produk=<?php echo $r['id_produk']; ?>"><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" href="aksi_hapus_keranjang.php?id_order=<?php echo $r['id_order']; ?>"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 							<?php } ?>
