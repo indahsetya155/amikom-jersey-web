@@ -18,7 +18,7 @@ $sid = session_id();
 							<td class="image">Gambar</td>
 							<td class="description">Nama Produk</td>
 							<td class="price">Harga</td>
-							<td class="quantity">Jml</td>
+							<td class="quantity">Jumlah</td>
 							<td class="total">Sub Total</td>
 							<td></td>
 						</tr>
