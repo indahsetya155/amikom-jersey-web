@@ -190,7 +190,7 @@ $sid = session_id();
 							</table>
 						</div>
 						<div class="form-group col-md-12">
-							<input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+							<a href="check.php" class="btn btn-default add-to-cart">Submit</a>
 						</div>
 					</form>
 				</div>
