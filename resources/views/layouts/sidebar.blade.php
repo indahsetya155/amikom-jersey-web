@@ -1,5 +1,5 @@
 <li>
-    <a class="nav-link" href="{{url('/')}}">
+    <a class="nav-link" href="{{url('/home')}}">
         <i class="fas fa-columns"></i>
         <span>Dashboard</span>
     </a>

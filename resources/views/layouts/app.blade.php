@@ -49,10 +49,10 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{url('/')}}"><img src="https://raw.githubusercontent.com/arifpujin/Exersice1/master/fotoarif.png" class="img-fluid avatar avatar-sm mb-1 mr-1" alt="logo {{env('APP_NAME')}}"> {{env('APP_NAME')}}</a>
+            <a href="{{url('/')}}">{{env('APP_NAME')}}</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{url('/')}}"><img src="https://raw.githubusercontent.com/arifpujin/Exersice1/master/fotoarif.png" class="img-fluid avatar avatar-sm" alt="logo {{env('APP_NAME')}}"></a>
+            {{-- <a href="{{url('/')}}"><img src="https://raw.githubusercontent.com/arifpujin/Exersice1/master/fotoarif.png" class="img-fluid avatar avatar-sm" alt="logo {{env('APP_NAME')}}"></a> --}}
           </div>
           <ul class="sidebar-menu">
             @include('layouts.sidebar')
@@ -79,7 +79,7 @@
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-              Hak Cipta &copy; <a href="{{url('gitlab.com/arifpujinugroho')}}" target="_blank" class="text-primary">{{env('APP_NAME')}}</a>
+              Hak Cipta &copy; <a href="https://arif.app" target="_blank" class="text-primary">{{env('APP_NAME')}}</a>
         </div>
         <div class="footer-right">
             V1.0.0
