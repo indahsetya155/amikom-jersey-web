@@ -21,10 +21,15 @@ Auth::routes([
 ]);
 
 Route::get('/','FrontendController@index')->name('fornt');
-Route::get('/item/{id}', 'FrontendController@detail')->name('detail');
+Route::get('item/{id}', 'FrontendController@detail')->name('detail');
 Route::middleware('auth')->group(function () {
-    Route::get('/addwishlist/{id}','FrontendController@addwishlist')->name('add-wishlist');
-    Route::post('/addkeranjang', 'FrontendController@addKeranjang')->name('add-keranjang');
+    Route::get('keranjang','FrontendController@listCart')->name('list-cart');
+    Route::get('wishlist','FrontendController@listWishlist')->name('list-wishlist');
+    Route::get('addwishlist/{id}','FrontendController@addwishlist')->name('add-wishlist');
+    Route::get('hapus-wishlist', 'FrontendController@deleteWishlist')->name('delete-wishlist');
+    Route::post('addkeranjang', 'FrontendController@addKeranjang')->name('add-keranjang');
+    Route::get('change-jumlah', 'FrontendController@changeKeranjang')->name('change-keranjang');
+    Route::get('hapus-keranjang', 'FrontendController@deleteKeranjang')->name('hapus-keranjang');
 });
 
 

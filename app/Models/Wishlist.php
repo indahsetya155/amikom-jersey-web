@@ -9,4 +9,9 @@ class Wishlist extends Model
 {
     use IdIsUuid;
     protected $fillable = ['user_id','product_id'];
+
+    public function product()
+    {
+        return $this->belongsTo(Products::class, 'product_id');
+    }
 }

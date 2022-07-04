@@ -81,7 +81,7 @@
               <div class="nav-cart clearfix hidden-sm hidden-xs">
                 <div class="nav-cart-outer">
                   <div class="nav-cart-inner">
-                    <a href="#" class="nav-cart-icon">
+                    <a href="{{url('keranjang')}}" class="nav-cart-icon">
                       {{$cart}}
                     </a>
                   </div>
@@ -104,9 +104,9 @@
                   </li>
                   @endif
 
-                <li><a href="{{url('/')}}">Keranjang</a></li>
+                <li><a href="{{url('keranjang')}}">Keranjang</a></li>
 
-                <li><a href="{{url('/')}}">Wishlist</a></li>
+                <li><a href="{{url('wishlist')}}">Wishlist</a></li>
 
 
                 @guest

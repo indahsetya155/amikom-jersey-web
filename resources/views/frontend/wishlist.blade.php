@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>{{ $data->name }} - Sfighter Jersey</title>
+    <title>Keranjang - Sfighter Jersey</title>
 
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
@@ -29,15 +28,16 @@
 
 <body class="relative">
 
-    <!-- Preloader -->
-    <div class="loader-mask">
-        <div class="loader">
-            <div></div>
-            <div></div>
-        </div>
+  <!-- Preloader -->
+  <div class="loader-mask">
+    <div class="loader">
+      <div></div>
+      <div></div>
     </div>
+  </div>
 
-    <main class="main-wrapper">
+  <main class="main-wrapper">
+
 
         <header class="nav-type-1">
 
@@ -66,7 +66,7 @@
                                 <!-- Logo -->
                                 <div class="logo-container">
                                     <div class="logo-wrap">
-                                        <a href="index.html">
+                                        <a href="{{url('/')}}">
                                             <h1>Sfighter</h1>
                                         </a>
                                     </div>
@@ -158,138 +158,121 @@
                 </div> <!-- end navigation -->
             </nav> <!-- end navbar -->
         </header>
-        <hr>
 
-        <div class="content-wrapper oh">
+    <!-- Page Title -->
+    <section class="page-title text-center bg-light">
+      <div class="container relative clearfix">
+        <div class="title-holder">
+          <div class="title-text">
+            <h1 class="uppercase">Wishlist</h1>
+            <ol class="breadcrumb">
+              <li>
+                <a href="{{url('/')}}">Home</a>
+              </li>
+              <li class="active">
+                Wistlist
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            @include('layouts.alert')
+    <div class="content-wrapper oh">
+        @include('layouts.alert')
+      <!-- Cart -->
+      <section class="section-wrap shopping-cart">
+        <div class="container relative">
+          <div class="row">
 
-            <!-- Single Product -->
-            <section class="section-wrap pb-40 single-product">
-                <div class="container-fluid semi-fluid">
-                    <div class="row">
+            <div class="col-md-12">
+              <div class="table-wrap mb-30">
+                <table class="shop_table cart table">
+                  <thead>
+                    <tr>
+                      <th class="product-name" colspan="2">Produk</th>
+                      <th class="product-price">Deskripsi</th>
+                      <th class="product-subtotal" colspan="2">Harga</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @forelse ($wishlist as $c)
+                    <tr class="cart_item">
+                      <td class="product-thumbnail">
+                        <a href="{{$c->product_id}}">
+                            @foreach($c->product->galleries as $key => $img)
+                            @if($key == 0)
+                                <img src="{{$img['photo']}}" alt="">
+                                @endif
+                            @endforeach
+                        </a>
+                      </td>
+                      <td class="product-name">
+                        <a href="#">{{$c->product->name}}</a>
+                      </td>
+                      <td class="product-price">
+                        <span class="amount"> {!!($c->product->description)!!}</span>
+                      </td>
+                      <td class="product-subtotal">
+                        <span class="amount">Rp. {{rupiah($c->product->price)}}</span>
+                      </td>
+                      <td class="product-remove">
+                        <a href="{{url('hapus-wishlist')}}?id={{$c->id}}" class="remove" title="Remove this item">
+                          <i class="ui-close"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-danger">Maaf, Wishtlist Belanja Anda Kosong</td>
+                        </tr>
+                    @endforelse
+                  </tbody>
+                </table>
+              </div>
 
-                        <div class="col-md-6 col-xs-12 product-slider mb-60">
-
-                            <div class="flickity flickity-slider-wrap mfp-hover" id="gallery-main">
-
-                                @foreach ($data->galleries as $img)
-                                    <div class="gallery-cell">
-                                        <a href="{{ $img['photo'] }}" class="lightbox-img text-center">
-                                            <img src="{{ $img['photo'] }}" class="text-center"
-                                                style="max-height: 650px; width:auto" alt="" />
-                                            <i class="ui-zoom zoom-icon"></i>
-                                        </a>
-                                    </div>
-                                @endforeach
-
-                            </div> <!-- end gallery main -->
-
-                            <div class="gallery-thumbs">
-
-                                @foreach ($data->galleries as $img)
-                                    <div class="gallery-cell">
-                                        <img src="{{ $img['photo'] }}" alt="" />
-                                    </div>
-                                @endforeach
-                            </div> <!-- end gallery thumbs -->
-
-                        </div> <!-- end col img slider -->
-
-                        <div class="col-md-6 col-xs-12 product-description-wrap">
-                            <ol class="breadcrumb">
-                                <li>
-                                    <a href="{{ url('/') }}">Home</a>
-                                </li>
-                                <li class="active">
-                                    {{ $data->type }}
-                                </li>
-                            </ol>
-                            <h1 class="product-title">{{ $data->name }}</h1>
-                            <span class="price">
-                                <ins>
-                                    <span class="amount">Rp. {{ $data->price }}</span>
-                                </ins>
-                            </span>
-                            <p class="short-description">{!! $data->description !!}.</p>
-
-
-                            <div class="product-actions">
-                                <span>Qty:</span>
-                                <div class="quantity buttons_added">
-                                    <input form="masukKeranjang" type="number" step="1" max="{{ $data->quantity }}" min="1" name="jumlah"
-                                        value="1" title="Qty" class="input-text qty text" />
-                                    <div class="quantity-adjust">
-                                        <a href="#" class="plus">
-                                            <i class="fa fa-angle-up"></i>
-                                        </a>
-                                        <a href="#" class="minus">
-                                            <i class="fa fa-angle-down"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <a onclick="$('#masukKeranjang').submit()" class="btn btn-dark btn-lg add-to-cart"><span>Add to Cart</span></a>
-                                <a href="{{ route('add-wishlist', $data->id) }}" class="product-add-to-wishlist"><i class="fa fa-heart"></i></a>
-                                </div>
-                                <form action="{{route('add-keranjang')}}" id="masukKeranjang" method="post">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}" form="masukKeranjang">
-                                <input type="hidden" form="masukKeranjang" name="product_id" value="{{$data->id}}">
-                            </form>
+            </div> <!-- end col -->
+          </div> <!-- end row -->
 
 
 
-
-                            <div class="socials-share clearfix">
-                                <span>Share:</span>
-                                <div class="social-icons nobase">
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-google"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div> <!-- end col product description -->
-                    </div> <!-- end row -->
-
-                </div> <!-- end container -->
-            </section> <!-- end single product -->
+        </div> <!-- end container -->
+      </section> <!-- end cart -->
 
 
 
+      <!-- Footer Type-1 -->
+      <footer class="footer footer-type-1">
 
-            <!-- Footer Type-1 -->
-            <footer class="footer footer-type-1">
+        <div class="bottom-footer">
+          <div class="container">
+            <div class="row">
 
-                <div class="bottom-footer">
-                    <div class="container">
-                        <div class="row">
-
-                            <div class="col-sm-6 copyright sm-text-center">
-                                <span>
+              <div class="col-sm-6 copyright sm-text-center">
+                <span>
                                     &copy; {{date('Y')}}, Sfighter Jersey Apparel || Made by <a href="http://indah.arif.app">Indah</a>
-                                </span>
-                            </div>
+                </span>
+              </div>
 
-                            <div class="col-sm-6 col-xs-12 footer-payment-systems text-right sm-text-center mt-sml-10">
-                                <i class="fa fa-cc-paypal"></i>
-                                <i class="fa fa-cc-visa"></i>
-                                <i class="fa fa-cc-mastercard"></i>
-                                <i class="fa fa-cc-discover"></i>
-                                <i class="fa fa-cc-amex"></i>
-                            </div>
+              <div class="col-sm-6 col-xs-12 footer-payment-systems text-right sm-text-center mt-sml-10">
+                <i class="fa fa-cc-paypal"></i>
+                <i class="fa fa-cc-visa"></i>
+                <i class="fa fa-cc-mastercard"></i>
+                <i class="fa fa-cc-discover"></i>
+                <i class="fa fa-cc-amex"></i>
+              </div>
 
-                        </div>
-                    </div>
-                </div> <!-- end bottom footer -->
-            </footer> <!-- end footer -->
-
-            <div id="back-to-top">
-                <a href="#top"><i class="fa fa-angle-up"></i></a>
             </div>
+          </div>
+        </div> <!-- end bottom footer -->
+      </footer> <!-- end footer -->
 
-        </div> <!-- end content wrapper -->
-    </main> <!-- end main wrapper -->
+      <div id="back-to-top">
+        <a href="#top"><i class="fa fa-angle-up"></i></a>
+      </div>
+
+    </div> <!-- end content wrapper -->
+  </main> <!-- end main wrapper -->
 
     <!-- jQuery Scripts -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
@@ -298,5 +281,4 @@
     <script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
 
 </body>
-
 </html>
