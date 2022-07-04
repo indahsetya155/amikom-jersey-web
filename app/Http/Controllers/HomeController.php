@@ -24,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->email != 'admin@gmail.com')
+            return redirect()->intended('/');
         return view('dashboard.index');
     }
 

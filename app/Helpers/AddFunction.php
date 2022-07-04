@@ -14,3 +14,9 @@ if (!function_exists('set_active')) {
     }
 }
 
+if(!function_exists('rupiah')){
+    function rupiah($money){
+      return  number_format($money, 0, ".", ".");
+    }
+}
+

@@ -22,6 +22,8 @@ class CreateTransactionsTable extends Migration
             $table->string('address');
             $table->integer('transaction_total');
             $table->string('transaction_status');
+            $table->string('file')->nullable();
+            $table->string('bukti')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -20,7 +20,11 @@ class Products extends Model
 
     public function galleries()
     {
-        return $this->hasMany(ProductGalleries::class,'products_id');
+        return $this->hasMany(ProductGalleries::class,'products_id')->orderBy('is_default','desc');
+    }
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class,'product_id');
     }
 
     public function transdetail()

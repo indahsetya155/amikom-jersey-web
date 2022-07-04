@@ -14,7 +14,7 @@ class Transactions extends Model
 
     protected $fillable =[
         'kode','name','email','number','address',
-        'transaction_total','transaction_status'
+        'transaction_total','transaction_status', 'bukti','file'
     ];
     protected $hidden =[
         'deleted_at','created_at','updated_at'

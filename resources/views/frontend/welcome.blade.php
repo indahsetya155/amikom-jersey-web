@@ -12,11 +12,13 @@
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700%7COpen+Sans:400,400i,600,700' rel='stylesheet'>
 
   <!-- Css -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/magnific-popup.css" />
-  <link rel="stylesheet" href="css/font-icons.css" />
-  <link rel="stylesheet" href="css/sliders.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/magnific-popup.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/font-icons.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/sliders.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+  <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
 
   <!-- Favicons -->
   <link rel="shortcut icon" href="img/favicon.ico">
@@ -80,12 +82,9 @@
                 <div class="nav-cart-outer">
                   <div class="nav-cart-inner">
                     <a href="#" class="nav-cart-icon">
-                      0
+                      {{$cart}}
                     </a>
                   </div>
-                </div>
-                <div class="nav-cart-amount">
-                  <a href="#"> Rp. 0</a>
                 </div>
               </div> <!-- end cart -->
 
@@ -94,33 +93,33 @@
 
                 <li><a href="{{url('/')}}">Beranda</a></li>
 
+                  @if($category->count() > 0)
                   <li class="dropdown">
                     <a href="#">Kategori</a><i class="fa fa-angle-down dropdown-trigger"></i>
                     <ul class="dropdown-menu">
-                      <li><a href="#">About Us</a></li>
+                        @foreach ($category as $c)
+                        <li><a href="{{url('/')}}?type={{$c->type}}">{{$c->type}}</a></li>
+                        @endforeach
                     </ul>
                   </li>
+                  @endif
 
                 <li><a href="{{url('/')}}">Keranjang</a></li>
 
                 <li><a href="{{url('/')}}">Wishlist</a></li>
 
 
-                  <li class="dropdown">
+                @guest
+                <li class="dropdown">
                     <a href="#">Akun</a><i class="fa fa-angle-down dropdown-trigger"></i>
                     <ul class="dropdown-menu">
-                    @guest
-                    <li><a href="{{url('login')}}">Login</a></li>
-                    <li><a href="{{url('register')}}">Registrasi</a></li>
-                    @endguest
+                        <li><a href="{{url('login')}}">Login</a></li>
+                        <li><a href="{{url('register')}}">Registrasi</a></li>
                     </ul>
-                  </li> <!-- end elements -->
-
-                  @auth
-                  <li class="mobile-links hidden-lg hidden-md">
-                    <a href="#">My Account</a>
-                  </li>
-                  @endauth
+                </li> <!-- end elements -->
+                @else
+                <li><a href="{{url('/')}}">Logout</a></li>
+                @endguest
 
                   <!-- Mobile search -->
                   <li id="mobile-search" class="hidden-lg hidden-md">
@@ -136,8 +135,8 @@
               </div> <!-- end collapse -->
 
               <!-- Search -->
-              <form class="relative mt-60 hidden-sm hidden-xs">
-                <input type="search" class="searchbox mb-0" placeholder="Search">
+              <form class="relative mt-60 hidden-sm hidden-xs" action="{{url()->current()}}">
+                <input type="text" name="search" value="{{request()->search}}" class="searchbox mb-0" placeholder="Cari Nama Produk">
                 <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
               </form>
 
@@ -162,422 +161,66 @@
 
     <div class="content-wrapper oh">
 
+
       <div class="products-grid-wrap clearfix">
+        @include('layouts.alert')
+            @if($products->count() == 0)
+            <div class="alert alert-warning" id="produkKosong" role="alert">
+                <strong>Maaf</strong>, Barang tidak ditemukan
+            </div>
+            <script>
+                $('.alert').alert();
+            </script>
+            @endif
         <div id="products-grid">
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_1.jpg" alt="">
-              </a>
-              <div class="product-label">
-                <span class="sale">sale</span>
-              </div>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Women</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Drawstring Dress</a>
-                  </h3>
-                  <span class="price">
-                    <del>
-                      <span>$730.00</span>
-                    </del>
-                    <ins>
-                      <span class="amount">$399.99</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
+            @foreach ($products as $product)
+            <div class="product-item hover-trigger">
+              <div class="product-img">
+                <a href="{{url('/item')}}/{{$product->id}}">
+                    @if($product->galleries->count() == 0)
+                        <img src="" onerror="this.onerror=null; this.src='{{asset('/img/shop/shop_item_4.jpg')}}'" alt="foto {{$product->name}}">
+                        @else
+                        @foreach ($product->galleries as $key => $img)
+                            @if($key == 0)
+                                <img src="{{$img['photo']}}" onerror="this.onerror=null; this.src='{{asset('/img/shop/shop_item_4.jpg')}}'" alt="foto {{$product->name}}">
+                            @endif
+                        @endforeach
+                    @endif
+                </a>
+                {{-- <div class="product-label">
+                  <span class="sale">sale</span>
+                </div> --}}
+                <div class="hover-overlay">
+                  <div class="product-actions">
+                    <a href="{{route('add-wishlist',$product->id)}}" class="product-add-to-wishlist">
+                      <i class="fa fa-heart"></i>
+                    </a>
+                  </div>
+                  <div class="product-details valign">
+                    <span class="category">
+                      <a href="catalogue-grid.html">{{$product->type}}</a>
+                    </span>
+                    <h3 class="product-title">
+                      <a href="shop-single.html">{{$product->name}}</a>
+                    </h3>
+                    <span class="price">
+                      {{-- <del>
+                        <span>$730.00</span>
+                      </del> --}}
+                      <ins>
+                        <span class="amount">Rp. {{rupiah($product->price)}},-</span>
+                      </ins>
+                    </span>
+                    <div class="btn-quickview">
+                      <a href="{{url('/item')}}/{{$product->id}}" class="btn btn-md btn-color">
+                      <span>Selengkapnya</span>
+                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_2.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Accessories</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Mesh Sandal</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$190.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_3.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Women</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Tribal Grey Blazer</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$330.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_4.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Men</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Sweater w/ Colar</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$299.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_5.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Women</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Lola May Crop Blazer</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$42.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_6.jpg" alt="">
-              </a>
-              <div class="product-label">
-                <span class="sale">sale</span>
-              </div>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Men</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Faux Suits</a>
-                  </h3>
-                  <span class="price">
-                    <del>
-                      <span>$500.00</span>
-                    </del>
-                    <ins>
-                      <span class="amount">$233.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_7.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Accessories</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Crew Watch</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$280.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_8.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Women</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Jersey Stylish</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$289.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_5.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Women</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Lola May Crop Blazer</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$42.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_6.jpg" alt="">
-              </a>
-              <div class="product-label">
-                <span class="sale">sale</span>
-              </div>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Men</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Faux Suits</a>
-                  </h3>
-                  <span class="price">
-                    <del>
-                      <span>$500.00</span>
-                    </del>
-                    <ins>
-                      <span class="amount">$233.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_7.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Accessories</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Crew Watch</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$280.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-item hover-trigger">
-            <div class="product-img">
-              <a href="shop-single.html">
-                <img src="img/shop/shop_item_8.jpg" alt="">
-              </a>
-              <div class="hover-overlay">
-                <div class="product-actions">
-                  <a href="#" class="product-add-to-wishlist">
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </div>
-                <div class="product-details valign">
-                  <span class="category">
-                    <a href="catalogue-grid.html">Women</a>
-                  </span>
-                  <h3 class="product-title">
-                    <a href="shop-single.html">Jersey Stylish</a>
-                  </h3>
-                  <span class="price">
-                    <ins>
-                      <span class="amount">$289.00</span>
-                    </ins>
-                  </span>
-                  <div class="btn-quickview">
-                    <a href="#" class="btn btn-md btn-color">
-                    <span>Quickview</span>
-                  </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            @endforeach
 
         </div> <!-- end products grid -->
       </div> <!-- end product grid wrap -->
@@ -586,10 +229,8 @@
   </main> <!-- end main wrapper -->
 
   <!-- jQuery Scripts -->
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/plugins.js"></script>
-  <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" src="{{asset('js/plugins.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/scripts.js')}}"></script>
 
 </body>
 </html>

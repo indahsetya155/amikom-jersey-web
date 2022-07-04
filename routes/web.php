@@ -20,25 +20,31 @@ Auth::routes([
     'reset'=>false,
 ]);
 
-Route::get('/',function (){
-    return view('frontend.welcome');
+Route::get('/','FrontendController@index')->name('fornt');
+Route::get('/item/{id}', 'FrontendController@detail')->name('detail');
+Route::middleware('auth')->group(function () {
+    Route::get('/addwishlist/{id}','FrontendController@addwishlist')->name('add-wishlist');
+    Route::post('/addkeranjang', 'FrontendController@addKeranjang')->name('add-keranjang');
 });
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth','admin'])->group(function () {
+    Route::resource('produk', ProductController::class);
+    Route::get('/product/data', 'ProductController@fetch_data')->name('product.data');
+    Route::get('/gallery/{id}/data', 'ProductController@fetch_data_gallery')->name('gallery.data');
 
-Route::resource('produk', ProductController::class);
-Route::get('/product/data', 'ProductController@fetch_data')->name('product.data');
-Route::get('/gallery/{id}/data', 'ProductController@fetch_data_gallery')->name('gallery.data');
+    Route::resource('produk-galeri', ProductGalleryController::class);
+    Route::get('/product-galeri/data', 'ProductGalleryController@fetch_data')->name('product-galeri.data');
 
-Route::resource('produk-galeri', ProductGalleryController::class);
-Route::get('/product-galeri/data', 'ProductGalleryController@fetch_data')->name('product-galeri.data');
-
-Route::resource('transaksi', TransactionController::class);
-Route::get('/transaction/data', 'TransactionController@fetch_data')->name('transaksi.data');
+    Route::resource('transaksi', TransactionController::class);
+    Route::get('/transaction/data', 'TransactionController@fetch_data')->name('transaksi.data');
 
 
-Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('table/{bulan}', 'HomeController@fetch_data');
-    Route::get('data', 'HomeController@getDataStatistik');
-    Route::get('grafik', 'HomeController@getGrafik');
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('table/{bulan}', 'HomeController@fetch_data');
+        Route::get('data', 'HomeController@getDataStatistik');
+        Route::get('grafik', 'HomeController@getGrafik');
+    });
 });
+
