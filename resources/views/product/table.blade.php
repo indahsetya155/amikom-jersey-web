@@ -32,6 +32,7 @@
                    data-name="{{$d->name}}"
                    data-type="{{$d->type}}"
                    data-price="{{$d->price}}"
+                   data-berat="{{$d->berat}}"
                    data-quantity="{{$d->quantity}}"
                    data-description="{{$d->description}}"
                    data-url="{{route('produk.update',$d->id)}}"

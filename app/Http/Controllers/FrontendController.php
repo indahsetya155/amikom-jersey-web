@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\API\ResponseFormater;
+use App\Http\Requests\API\CheckoutRequest;
 use App\Models\Cart;
 use App\Models\Products;
+use App\Models\TransactionDetails;
+use App\Models\Transactions;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -35,11 +39,57 @@ class FrontendController extends Controller
         $cart = Cart::with('product.galleries')->where('user_id',auth()->user()->id)->get();
         return view('frontend.keranjang', compact('cart','category'));
     }
+
     public function listWishlist()
     {
         $category = Products::select('type')->distinct()->get();
         $wishlist = Wishlist::with('product.galleries')->where('user_id',auth()->user()->id)->get();
         return view('frontend.wishlist', compact('wishlist','category'));
+    }
+
+    public function formCheckout()
+    {
+        $last = Transactions::where('email',auth()->user()->email)->latest()->first();
+        $category = Products::select('type')->distinct()->get();
+        $cart = Cart::with('product.galleries')->where('user_id', auth()->user()->id)->get();
+        return view('frontend.form-checkout', compact('cart', 'category','last'));
+    }
+
+
+    public function checkout(CheckoutRequest $request)
+    {
+
+        $data = $request->except('transaction_details');
+        $data['kode'] = strtotime(date("Y-m-d H:i:s"));
+        $data['transaction_status'] = "PENDING";
+        $data['email'] = auth()->user()->email;
+
+        if($request->hasFile('file')){
+            $data['file'] = $request->file('file')->store('desain','public');
+        }
+
+        $data = DB::transaction(function () use ($data, $request) {
+
+            $trans = Transactions::create($data);
+            $cart = Cart::where('user_id', auth()->user()->id)->get();
+            foreach ($cart as $productId) {
+
+                $details[] = new TransactionDetails([
+                    'transactions_id'   => $trans->id,
+                    'products_id'       => $productId->product_id,
+                    'jumlah'       => $productId->jumlah,
+                ]);
+
+              $barang =  Products::find($productId->product_id);
+              $barang->update([
+                'quantity' => $barang->quantity - $productId->jumlah,
+              ]);
+            }
+            Cart::where('user_id', auth()->user()->id)->delete();
+            return $trans->details()->saveMany($details);
+        });
+
+        return redirect('/')->with('success','Checkout Berhasil');
     }
 
     public function addWishlist($id)
@@ -52,7 +102,7 @@ class FrontendController extends Controller
         Wishlist::create(['user_id' => auth()->user()->id,'product_id'=> $produk->id]);
         return redirect()->back()->with('success', 'Produk berhasil dimasukan ke dalam wishlist');
     }
-    
+
     public function deleteWishlist()
     {
         $cart = Wishlist::findOrfail(request()->id);
@@ -79,8 +129,8 @@ class FrontendController extends Controller
     }
     public function changeKeranjang()
     {
-        // if (auth()->user()->email == 'admin@gmail.com')
-        //     return redirect()->back()->with('danger', 'Admin tidak bisa memasukan kedalam keranjang');
+        if (auth()->user()->email == 'admin@gmail.com')
+            return redirect()->back()->with('danger', 'Admin tidak bisa memasukan kedalam keranjang');
         $cart = Cart::with('product')->findOrfail(request()->id);
         if ($cart){
             if(request()->step == 'plus'){
@@ -96,8 +146,8 @@ class FrontendController extends Controller
     }
     public function deleteKeranjang()
     {
-        // if (auth()->user()->email == 'admin@gmail.com')
-        //     return redirect()->back()->with('danger', 'Admin tidak bisa memasukan kedalam keranjang');
+        if (auth()->user()->email == 'admin@gmail.com')
+            return redirect()->back()->with('danger', 'Admin tidak bisa memasukan kedalam keranjang');
         $cart = Cart::with('product')->findOrfail(request()->id);
         $cart->delete();
         return redirect()->back()->with('success', 'Jumlah Produk berhasil dihapus');

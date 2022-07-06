@@ -17,6 +17,7 @@ class CreateTransactionDetailsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('transactions_id');
             $table->uuid('products_id');
+            $table->integer('jumlah');
             $table->softDeletes();
             $table->timestamps();
         });

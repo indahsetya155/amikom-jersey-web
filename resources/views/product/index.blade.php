@@ -70,6 +70,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="hargabarang">Berat Barang (gram/satu barang)  </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="berat" id="berat" placeholder="Masukan Berat Barang setiap 1 Barang (Gram)">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="kuantitasbarang">Kuantitas Barang</label>
                     <div class="input-group">
                         <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Masukan Kuantitas Barang">

@@ -54,6 +54,10 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'rajaongkir_key' => env('KEY_API_RAJAONGKIR', 'dfbd52c0920d510f3a79e3682e0cb8f6'),
+
+    'rajaongkir_url' => env('URL_API_RAJAONGKIR', 'https://api.rajaongkir.com/starter'),
+
     'asset_url' => env('ASSET_URL', null),
 
     /*

@@ -12,7 +12,7 @@ class Products extends Model
     use IdIsUuid,SoftDeletes;
     public $incrementing = false;
     protected $fillable =[
-        'name','type','description','price','slug','quantity'
+        'name','type','description','price','slug','quantity','berat'
     ];
     protected $hidden =[
         'deleted_at','created_at','updated_at'

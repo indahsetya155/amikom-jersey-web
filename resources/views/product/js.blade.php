@@ -38,6 +38,7 @@ $(document).on('click', '.editBarang', function(event){
     $('#type').val($(this).data('type'));
     setDataFromTheEditor($(this).data('description'));
     $('#price').val($(this).data('price'));
+    $('#berat').val($(this).data('berat'));
     $('#quantity').val($(this).data('quantity'));
     $('#modalBarang .modal-title').html('Edit Barang');
     $('#btnAction').html('Edit');

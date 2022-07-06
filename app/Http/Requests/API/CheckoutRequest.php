@@ -26,12 +26,15 @@ class CheckoutRequest extends FormRequest
         return [
             'name'                  => 'required|string|max:191',
             'email'                 => 'required|email',
+            'province'                 => 'required|numeric',
+            'city'                 => 'required|numeric',
+            'kurir'                 => 'required|string',
+            'ongkir'                 => 'required|string',
+            'note'                 => 'nullable|string',
+            'file'                 => 'nullable|file|mimes:png,jpg,jpeg,gif|max:2048',
             'number'                => 'required|numeric|integer',
             'address'               => 'required|string',
             'transaction_total'     => 'required|numeric',
-            'transaction_status'    => 'required|in:PENDING,SUCCESS,FAILED',
-            'transaction_details'   => 'required|array',
-            'transaction_details.*' => 'required|exists:products,id',
         ];
     }
 }

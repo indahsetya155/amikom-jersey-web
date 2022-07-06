@@ -19,10 +19,15 @@ class CreateTransactionsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('number');
-            $table->string('address');
+            $table->longText('address');
+            $table->string('province')->nullable();
+            $table->string('city')->nullable();
+            $table->string('kurir')->nullable();
+            $table->string('ongkir')->nullable();
             $table->integer('transaction_total');
             $table->string('transaction_status');
             $table->string('file')->nullable();
+            $table->longText('note')->nullable();
             $table->string('bukti')->nullable();
             $table->softDeletes();
             $table->timestamps();

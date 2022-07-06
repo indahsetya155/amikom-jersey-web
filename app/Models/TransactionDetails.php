@@ -12,7 +12,7 @@ class TransactionDetails extends Model
     use IdIsUuid,SoftDeletes;
     public $incrementing = false;
     protected $fillable =[
-        'transactions_id','products_id'
+        'transactions_id','products_id','jumlah'
     ];
     protected $hidden =[
         'deleted_at','created_at','updated_at'

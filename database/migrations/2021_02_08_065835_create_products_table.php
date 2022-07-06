@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('type');
             $table->longText('description');
             $table->integer('price');
+            $table->integer('berat');
             $table->integer('quantity');
             $table->softDeletes();
             $table->timestamps();
