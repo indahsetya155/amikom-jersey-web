@@ -32,10 +32,31 @@
 </div>
 <div class="row container mt-4">
     <div class="col-sm-12 col-md-3 col-lg-3">
-        <strong>Total Transaksi</strong>
+        <strong>Kurir</strong>
     </div>
     <div class="col-sm-12 col-md-9 col-lg-9">
-        Rp. {{number_format($data->transaction_total, 0, ".", ".")}}
+        <span class="text-uppercase">{{$data->kurir}}</span> - {{$data->ongkir}} Hari
+    </div>
+</div>
+<div class="row container mt-4">
+    <div class="col-sm-12 col-md-3 col-lg-3">
+        <strong>Catatan</strong>
+    </div>
+    <div class="col-sm-12 col-md-9 col-lg-9">
+        {{$data->note?:'-'}}
+    </div>
+</div>
+<div class="row container mt-4">
+    <div class="col-sm-12 col-md-3 col-lg-3">
+        <strong>Lihat File</strong>
+    </div>
+    <div class="col-sm-12 col-md-9 col-lg-9">
+        @if ($data->file)
+        <a href="{{url($data->file)}}" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary btn-sm">Lihat Desain</button></a>
+        @endif
+        @if ($data->bukti)
+        <a href="{{url($data->bukti)}}" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary btn-sm">Lihat Bukti</button></a>
+        @endif
     </div>
 </div>
 <div class="row container mt-4">
@@ -58,6 +79,14 @@
 </div>
 <div class="row container mt-4">
     <div class="col-sm-12 col-md-3 col-lg-3">
+        <strong>Total Transaksi</strong>
+    </div>
+    <div class="col-sm-12 col-md-9 col-lg-9">
+        Rp. {{number_format($data->transaction_total, 0, ".", ".")}}
+    </div>
+</div>
+<div class="row container mt-4">
+    <div class="col-sm-12 col-md-3 col-lg-3">
         <strong>Pembelian</strong>
     </div>
     <div class="col-sm-12 col-md-9 col-lg-9">
@@ -65,12 +94,14 @@
             <tr>
                 <th>Nama</th>
                 <th>Tipe</th>
+                <th>Jumlah</th>
                 <th>Harga</th>
             </tr>
             @foreach ($data->details as $item)
                 <tr>
                     <td>{{$item->product->name}}</td>
                     <td>{{$item->product->type}}</td>
+                    <td class="text-center">{{$item->jumlah}}</td>
                     <td>Rp. {{number_format($item->product->price, 0, ".", ".")}}</td>
                 </tr>
             @endforeach

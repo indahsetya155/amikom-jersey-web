@@ -25,6 +25,7 @@ Route::get('item/{id}', 'FrontendController@detail')->name('detail');
 Route::middleware('auth')->group(function () {
     Route::get('keranjang','FrontendController@listCart')->name('list-cart');
     Route::get('form-checkout', 'FrontendController@formCheckout')->name('form-checkout');
+    Route::get('checkout', 'FrontendController@listCheckout')->name('list-checkout');
     Route::post('checkout', 'FrontendController@checkout')->name('checkout');
     Route::get('wishlist','FrontendController@listWishlist')->name('list-wishlist');
     Route::get('addwishlist/{id}','FrontendController@addwishlist')->name('add-wishlist');

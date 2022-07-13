@@ -118,6 +118,7 @@
                     </ul>
                 </li> <!-- end elements -->
                 @else
+                <li><a href="{{url('checkout')}}">Riwayat</a></li>
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

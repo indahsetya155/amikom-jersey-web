@@ -124,6 +124,7 @@
                                                 </ul>
                                             </li> <!-- end elements -->
                                         @else
+                                            <li><a href="{{url('checkout')}}">Riwayat</a></li>
                                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                                 @csrf
@@ -207,7 +208,7 @@
                       <label for="billing_phone">Telepon
                         <abbr class="required" title="required">*</abbr>
                       </label>
-                      <input type="text" class="input-text" value="{{$last?$last->number:''}}" placeholder value name="number" id="billing_phone" required>
+                      <input type="text" class="input-text" value="{{$last?$last->number:''}}" placeholder="Contoh : 628588599450*" value name="number" id="billing_phone" required>
                     </p>
 
                     <p class="form-row form-row-last validate-required validate-phone" id="billing_phone_field">
@@ -406,7 +407,7 @@
                 $('#pilihOngkir').html('<option value="">-- Pilih jenis pengiriman --</option>');
                  $.each(data,function(key,value){
                     $.each(value.cost,function(key,val){
-                        $('#pilihOngkir').append('<option harga="'+val.value+'" title="'+value.description+'" value="'+value.service+val.etd+'">'+value.description+' ('+value.service+') || Rp. '+val.value+' || Perkiraan '+val.etd+' Hari</option>');
+                        $('#pilihOngkir').append('<option harga="'+val.value+'" title="'+value.description+'" value="'+value.service+' '+val.etd+'">'+value.description+' ('+value.service+') || Rp. '+val.value+' || Perkiraan '+val.etd+' Hari</option>');
                     });
                  });
                 }

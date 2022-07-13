@@ -47,6 +47,13 @@ class FrontendController extends Controller
         return view('frontend.wishlist', compact('wishlist','category'));
     }
 
+    public function listCheckout()
+    {
+        $category = Products::select('type')->distinct()->get();
+        $checkout = Transactions::where('email',auth()->user()->email)->get();
+        return view('frontend.checkout', compact('checkout','category'));
+    }
+
     public function formCheckout()
     {
         $last = Transactions::where('email',auth()->user()->email)->latest()->first();
@@ -89,7 +96,7 @@ class FrontendController extends Controller
             return $trans->details()->saveMany($details);
         });
 
-        return redirect('/')->with('success','Checkout Berhasil');
+        return redirect('checkout')->with('success','Checkout Berhasil');
     }
 
     public function addWishlist($id)
