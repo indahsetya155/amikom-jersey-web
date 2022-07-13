@@ -16,6 +16,19 @@ if (!function_exists('set_active')) {
     }
 }
 
+if (!function_exists('sendWA')) {
+    function sendWA($phone, $message)
+    {
+        $key = 'test-arifapp-1234567890';
+        $response = Http::post('https://api.arif.app/api/send', [
+            'no' => $phone,
+            'key' => $key,
+            'pesan' => $message
+        ]);
+        return $response->successful();
+    }
+}
+
 if(!function_exists('rupiah')){
     function rupiah($money){
       return  number_format($money, 0, ".", ".");

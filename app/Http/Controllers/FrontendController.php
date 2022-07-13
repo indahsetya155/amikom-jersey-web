@@ -94,6 +94,7 @@ class FrontendController extends Controller
               ]);
             }
             Cart::where('user_id', auth()->user()->id)->delete();
+            $this->sendWA($trans);
             return $trans->details()->saveMany($details);
         });
 
@@ -172,5 +173,21 @@ class FrontendController extends Controller
         $cart = Cart::with('product')->findOrfail(request()->id);
         $cart->delete();
         return redirect()->back()->with('success', 'Jumlah Produk berhasil dihapus');
+    }
+
+    private function sendWA($data)
+    {
+        $no = '6288221167936';
+        try {
+            sendWa($no, "*Pemberitahuan!*
+Anda telah menerima satu pesanan baru.
+ID Transaksi : ".$data->kode."
+Akun Email : ".$data->email."
+Nama : ".$data->name."
+Jumlah Transaksi : ".$data->transaction_total."
+");
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }
