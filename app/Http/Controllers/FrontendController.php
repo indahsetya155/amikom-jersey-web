@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\API\ResponseFormater;
 use App\Http\Requests\API\CheckoutRequest;
+use App\Http\Requests\uploadFile;
 use App\Models\Cart;
 use App\Models\Products;
 use App\Models\TransactionDetails;
@@ -97,6 +98,19 @@ class FrontendController extends Controller
         });
 
         return redirect('checkout')->with('success','Checkout Berhasil');
+    }
+
+    public function uploadFile(uploadFile $request,$id)
+    {
+        $data = Transactions::findOrFail($id);
+        if($request->hasFile('file')){
+            $input['file'] = $request->file('file')->store('desain','public');
+        }
+        if($request->hasFile('bukti')){
+            $input['bukti'] = $request->file('bukti')->store('bukti','public');
+        }
+        $data->update($input);
+        return redirect()->back()->with('success','Upload ulang berhasil');
     }
 
     public function addWishlist($id)

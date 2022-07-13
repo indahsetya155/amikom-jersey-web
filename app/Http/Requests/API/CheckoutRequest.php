@@ -32,7 +32,7 @@ class CheckoutRequest extends FormRequest
             'ongkir'                 => 'required|string',
             'note'                 => 'nullable|string',
             'file'                 => 'nullable|file|mimes:png,jpg,jpeg,gif|max:2048',
-            'number'                => 'required|numeric|integer',
+            'number'                => 'required|numeric',
             'address'               => 'required|string',
             'transaction_total'     => 'required|numeric',
         ];

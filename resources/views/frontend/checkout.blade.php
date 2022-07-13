@@ -229,11 +229,11 @@
                         @if ($c->file)
                           <a href="{{url('/')}}/{{$c->file}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-eye" aria-hidden="true"></i> Desain</span></a><br><br>
                           @if($c->transaction_status == 'PENDING')
-                            <a href="{{url('/')}}/{{$c->file}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-upload" aria-hidden="true"></i> Desain</span></a><br>
+                            <a  rel="noopener noreferrer" class="btn btn-md btn-color m-4 uploadFile" value="{{url('uploadfile')}}/{{$c->id}}" tipe="desain"><span><i class="fa fa-upload" aria-hidden="true"></i> Desain</span></a><br>
                           @endif
                         @else
                           @if($c->transaction_status == 'PENDING')
-                            <a href="{{url('/')}}/{{$c->file}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-upload" aria-hidden="true"></i> Desain</span></a><br>
+                            <a  rel="noopener noreferrer" class="btn btn-md btn-color m-4 uploadFile" value="{{url('uploadfile')}}/{{$c->id}}" tipe="desain"><span><i class="fa fa-upload" aria-hidden="true"></i> Desain</span></a><br>
                           @endif
                         @endif
                       </td>
@@ -241,11 +241,11 @@
                         @if ($c->bukti)
                           <a href="{{url('/')}}/{{$c->bukti}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-eye" aria-hidden="true"></i> Bukti</span></a><br><br>
                           @if($c->transaction_status == 'PENDING')
-                            <a rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-upload" aria-hidden="true"></i> Bukti</span></a><br>
+                            <a rel="noopener noreferrer" class="btn btn-md btn-color m-4 uploadFile" value="{{url('uploadfile')}}/{{$c->id}}" tipe="bukti"><span><i class="fa fa-upload" aria-hidden="true"></i> Bukti</span></a><br>
                           @endif
                         @else
                           @if($c->transaction_status == 'PENDING')
-                            <a rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-upload" aria-hidden="true"></i> Bukti</span></a><br>
+                            <a rel="noopener noreferrer" class="btn btn-md btn-color m-4 uploadFile" value="{{url('uploadfile')}}/{{$c->id}}" tipe="bukti"><span><i class="fa fa-upload" aria-hidden="true"></i> Bukti</span></a><br>
                           @endif
                         @endif
                       </td>
@@ -316,6 +316,36 @@
     </div> <!-- end content wrapper -->
   </main> <!-- end main wrapper -->
 
+  <!-- Modal -->
+  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <form action="#" method="post" id="formUpload" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group" id="formBukti">
+                      <label for="">Bukti Transfer</label>
+                      <input type="file" class="form-control" name="bukti" id="bukti" placeholder="" accept=".jpg,.png,.jpeg" required>
+                    </div>
+                    <div class="form-group" id="formDesain">
+                      <label for="">File Desain</label>
+                      <input type="file" class="form-control" name="file" id="file" placeholder="" accept=".jpg,.png,.jpeg" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-md btn-color"><span>Simpan</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
     <!-- jQuery Scripts -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -330,19 +360,24 @@
             }
         });
     });
-        $('body .perubahanJumlah').click(function(e) {
-            e.preventDefault();
-                $.ajax({
-                    url: $(this).attr('value'),
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    success: function() {
-                        location.reload();
-                    },
-                });
-        });
+
+    $(document).on('click','.uploadFile', function(e){
+        var tipe = $(this).attr('tipe');
+        var url = $(this).attr('value');
+        $('#formUpload').attr('action',url);
+        if(tipe == 'bukti'){
+            $('#formBukti').show();
+            $('#formDesain').hide();
+            $('#file').attr('disabled','disabled');
+            $('#bukti').removeAttr('disabled');
+        }else{
+            $('#formBukti').hide();
+            $('#formDesain').show();
+            $('#bukti').attr('disabled','disabled');
+            $('#file').removeAttr('disabled');
+        }
+        $('#modelId').modal('show');
+    });
     </script>
 
 </body>

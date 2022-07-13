@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('form-checkout', 'FrontendController@formCheckout')->name('form-checkout');
     Route::get('checkout', 'FrontendController@listCheckout')->name('list-checkout');
     Route::post('checkout', 'FrontendController@checkout')->name('checkout');
+    Route::post('uploadfile/{id}', 'FrontendController@uploadFile')->name('uploadfile');
     Route::get('wishlist','FrontendController@listWishlist')->name('list-wishlist');
     Route::get('addwishlist/{id}','FrontendController@addwishlist')->name('add-wishlist');
     Route::get('hapus-wishlist', 'FrontendController@deleteWishlist')->name('delete-wishlist');
