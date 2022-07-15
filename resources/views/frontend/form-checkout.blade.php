@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Form Checkout - Sfighter Jersey</title>
+    <title>Form Checkout - Jersey Sfighter Apparel</title>
 
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
@@ -66,7 +66,7 @@
                 <div class="logo-container">
                   <div class="logo-wrap">
                     <a href="{{url('/')}}">
-                        <h1>Sfighter</h1>
+                        <h1>Jersey Sfighter Apparel</h1>
                     </a>
                   </div>
                 </div>
@@ -354,7 +354,7 @@
 
               <div class="col-sm-6 copyright sm-text-center">
                 <span>
-                    &copy; {{date('Y')}}, Sfighter Jersey Apparel || Made by <a href="http://indah.arif.app">Indah</a>
+                    &copy; {{date('Y')}}, Jersey Sfighter Apparel || Made by <a href="http://indah.arif.app">Indah</a>
                 </span>
               </div>
 
