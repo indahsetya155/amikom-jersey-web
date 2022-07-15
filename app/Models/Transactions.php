@@ -30,4 +30,18 @@ class Transactions extends Model
         return 'TRX'.$value;
     }
 
+    public function getFileAttribute($value)
+    {
+        if ($value)
+            return url('storage/' . $value);
+        return null;
+    }
+
+    public function getBuktiAttribute($value)
+    {
+        if($value)
+            return url('storage/' . $value);
+        return null;
+    }
+
 }
