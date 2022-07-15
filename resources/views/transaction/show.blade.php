@@ -52,10 +52,10 @@
     </div>
     <div class="col-sm-12 col-md-9 col-lg-9">
         @if ($data->file)
-        <a href="{{url($data->file)}}" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary btn-sm">Lihat Desain</button></a>
+        <a href="{{$data->file}}" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary btn-sm">Lihat Desain</button></a>
         @endif
         @if ($data->bukti)
-        <a href="{{url($data->bukti)}}" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary btn-sm">Lihat Bukti</button></a>
+        <a href="{{$data->bukti}}" target="_blank" rel="noopener noreferrer"><button class="btn btn-primary btn-sm">Lihat Bukti</button></a>
         @endif
     </div>
 </div>

@@ -227,7 +227,7 @@
                       </td>
                       <td class="text-center">
                         @if ($c->file)
-                          <a href="{{url('/')}}/{{$c->file}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-eye" aria-hidden="true"></i> Desain</span></a><br><br>
+                          <a href="{{$c->file}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-eye" aria-hidden="true"></i> Desain</span></a><br><br>
                           @if($c->transaction_status == 'PENDING')
                             <a  rel="noopener noreferrer" class="btn btn-md btn-color m-4 uploadFile" value="{{url('uploadfile')}}/{{$c->id}}" tipe="desain"><span><i class="fa fa-upload" aria-hidden="true"></i> Desain</span></a><br>
                           @endif
@@ -239,7 +239,7 @@
                       </td>
                       <td class="text-center">
                         @if ($c->bukti)
-                          <a href="{{url('/')}}/{{$c->bukti}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-eye" aria-hidden="true"></i> Bukti</span></a><br><br>
+                          <a href="{{$c->bukti}}" target="_blank" rel="noopener noreferrer" class="btn btn-md btn-color m-4"><span><i class="fa fa-eye" aria-hidden="true"></i> Bukti</span></a><br><br>
                           @if($c->transaction_status == 'PENDING')
                             <a rel="noopener noreferrer" class="btn btn-md btn-color m-4 uploadFile" value="{{url('uploadfile')}}/{{$c->id}}" tipe="bukti"><span><i class="fa fa-upload" aria-hidden="true"></i> Bukti</span></a><br>
                           @endif
