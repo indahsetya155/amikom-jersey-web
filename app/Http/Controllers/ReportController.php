@@ -26,4 +26,18 @@ class ReportController extends Controller
         // $data = Transactions::whereBetween('created_at', [$start, $end])->get();
         return response()->json(['data'=>$data]);
     }
+
+    public function total(Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+        $total = 0;
+        $data = TransactionDetails::with('product','transaction')
+            ->whereBetween('created_at',[$start,$end])
+            ->get();
+        foreach ($data as $item) {
+            $total += $item->product->price * $item->jumlah;
+        }
+        return response()->json($total);
+    }
 }

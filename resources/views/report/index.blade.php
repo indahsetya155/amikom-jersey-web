@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table" id="tableReport" width="100%">
+                        <table class="table table-striped" id="tableReport" width="100%">
                             <thead>
                                 <tr>
                                     <th>ID Transaksi</th>
@@ -33,6 +33,13 @@
                                     <th>Total</th>
                                 </tr>
                             </thead>
+                            <tfoot class="text-right">
+                                <tr class="text-right">
+                                    <td colspan="5" ></td>
+                                    <td class="text-right">Total Keseluruhan</td>
+                                    <td id="jumlah"></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -66,10 +73,13 @@
     $(document).ready(function(){
         start = $('#startdate').val();
         end = $('#enddate').val();
+        ajaxJumlah();
         table = $('#tableReport').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                'excel', 'pdf', 'print'
+                { extend: 'print', footer: true },
+                { extend: 'excel', footer: true },
+                { extend: 'pdf', footer: true }
             ],
             processing: true,
             paging: false,
@@ -122,8 +132,23 @@
     $('.tanggalTransaksi').change(function(){
         start = $('#startdate').val();
         end = $('#enddate').val();
+        ajaxJumlah();
         table.ajax.reload();
     });
+
+    function ajaxJumlah() {
+        $('#jumlah').html('<i class="fa fa-spinner fa-spin"></i>');
+        $.ajax({
+            url: "{{url('report/data')}}",
+            data: {
+                start: start,
+                end: end
+            },
+            success: function(data) {
+                $('#jumlah').html(changeIDR(data));
+            }
+        });
+    }
 
     // format date english to indonesia
     function changeTimestaptoDateIndonesia(timestamp) {

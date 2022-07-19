@@ -50,6 +50,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/transaction/data', 'TransactionController@fetch_data')->name('transaksi.data');
 
     Route::get('report','ReportController@index')->name('report');
+    Route::get('report/data', 'ReportController@total')->name('report.data');
 
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('table/{bulan}', 'HomeController@fetch_data');
