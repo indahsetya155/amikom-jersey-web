@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="table-responsive">
+                    <div class="table-responsive">
                         <table class="table" id="tableReport" width="100%">
                             <thead>
                                 <tr>
