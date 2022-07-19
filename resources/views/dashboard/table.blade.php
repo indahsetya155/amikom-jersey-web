@@ -11,7 +11,7 @@
           <th>Email</th>
           <th>Nomor</th>
           <th>Total Transaksi</th>
-          <th width="10%" class="text-center">Ststus</th>
+          <th width="10%" class="text-center">Status</th>
       </tr>
     </thead>
     <tbody id="table-body">
