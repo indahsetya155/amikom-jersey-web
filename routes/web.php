@@ -49,6 +49,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::resource('transaksi', TransactionController::class);
     Route::get('/transaction/data', 'TransactionController@fetch_data')->name('transaksi.data');
 
+    Route::get('report','ReportController@index')->name('report');
 
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('table/{bulan}', 'HomeController@fetch_data');

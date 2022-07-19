@@ -17,7 +17,7 @@ class Transactions extends Model
         'transaction_total','transaction_status', 'bukti','file','note','province','city','kurir','ongkir'
     ];
     protected $hidden =[
-        'deleted_at','created_at','updated_at'
+        'deleted_at','updated_at'
     ];
 
     public function details()

@@ -22,3 +22,9 @@
         <span>Transaksi</span>
     </a>
 </li>
+<li>
+    <a class="nav-link" href="{{url('report')}}">
+        <i class="fas fa-receipt    "></i>
+        <span>Laporan</span>
+    </a>
+</li>

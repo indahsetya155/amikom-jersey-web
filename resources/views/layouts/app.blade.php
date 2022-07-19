@@ -23,13 +23,13 @@
   <link rel="stylesheet" href="{{asset('assets/modules/izitoast/css/iziToast.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/modules/bootstrap-social/bootstrap-social.css')}}">
   <link rel="stylesheet" href="{{asset('assets/modules/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
   @stack('css')
 
 
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
 </head>
 
 <body>
@@ -107,10 +107,10 @@
 <script type="text/javascript" src="{{asset('assets/modules/sweetalert2/dist/sweetalert.min.js')}}"></script>
 <script src="{{asset('assets/modules/izitoast/js/iziToast.min.js')}}"></script>
 
-@stack('js')
 
 <!-- Template JS File -->
 <script src="{{asset('assets/js/scripts.js')}}"></script>
 <script src="{{asset('assets/js/custom.js')}}"></script>
+@stack('js')
 </body>
 </html>
