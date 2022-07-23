@@ -323,7 +323,7 @@
                           <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked">
                           <label for="payment_method_bacs">Bank Transfer</label>
                           <div class="payment_box payment_method_bacs">
-                            <p>Silakan anda mentransfer ke BANK MANDIRI a/n SIAPA YA oke.</p>
+                            <p>Silakan anda mentransfer ke BANK MANDIRI a/n Agus Setiawan No. Rekening : 1370014159855.</p>
                           </div>
                         </li>
                         <input type="hidden" name="transaction_total" id="transaction_total" required>
