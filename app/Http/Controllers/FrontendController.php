@@ -177,7 +177,7 @@ class FrontendController extends Controller
 
     private function sendWA($data)
     {
-        $no = '6288221167936';
+        $no = '6287877242599';
         try {
             sendWa($no, "*Pemberitahuan!*
 Anda telah menerima satu pesanan baru.
