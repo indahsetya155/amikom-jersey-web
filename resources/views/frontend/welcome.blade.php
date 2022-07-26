@@ -144,16 +144,10 @@
                 <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
               </form>
 
-              <div class="social-icons mt-40 nobase hidden-sm hidden-xs">
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-google-plus"></i></a>
-              </div>
 
               <div class="copyright hidden-sm hidden-xs">
                 <span>
-                  &copy; {{date('Y')}}, Jersey Sfighter Apparel || Alamat     : Jl. Ahmad Wahid, Mantup, Baturetno. Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55197 || Telephone/WA  : 081233922690 || IG : @Sfighter_Apparel
-<br> Made by <a href="http://indah.arif.app">Indah</a>
+                  &copy; {{date('Y')}}, Jersey Sfighter Apparel <br> Alamat  : Jl. Ahmad Wahid, Mantup, Baturetno. Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55197 <br> IG : @Sfighter_Apparel
                 </span>
               </div>
 
