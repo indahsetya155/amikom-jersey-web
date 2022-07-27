@@ -244,7 +244,7 @@
 
 
 
-                            
+
                         </div> <!-- end col product description -->
                     </div> <!-- end row -->
 
@@ -263,7 +263,7 @@
 
                             <div class="col-sm-6 copyright sm-text-center">
                                 <span>
-                                    &copy; {{date('Y')}}, Jersey Sfighter Apparel <br> Alamat  : Jl. Ahmad Wahid, Mantup, Baturetno. Kec. Banguntapan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55197 <br> IG : @Sfighter_Apparel
+                                    &copy; {{date('Y')}}, Jersey Sfighter Apparel <br> <small><i class="fa fa-building" aria-hidden="true"></i>  : Jl. Ahmad Wahid, Mantup, Baturetno. Kec. Banguntapan, Kabupaten Bantul, DIY 55197 <br> <i class="fa fa-instagram text-danger"></i> : <a href="http://instagram.com/Sfighter_Apparel" target="_blank" rel="noopener noreferrer">@Sfighter_Apparel</a></small>
                                 </span>
                             </div>
 

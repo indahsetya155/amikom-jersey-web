@@ -62,7 +62,7 @@ if(!function_exists('listCityID')){
 if(!function_exists('searchCost')){
     function listsearchCostCityID($idcity,$kurir,$berat){
        return  Cache::remember('listCityID'. $idcity.'-'.$kurir.'-'.$berat, 60*60*24*30*6, function () use ($idcity,$berat,$kurir){
-            $response = Http::post(config('app.rajaongkir_url'). '/cost',['key' => config('app.rajaongkir_key'), 'origin'=> '501', 'destination'=>$idcity, 'weight'=>$berat, 'courier'=>$kurir]);
+            $response = Http::post(config('app.rajaongkir_url'). '/cost',['key' => config('app.rajaongkir_key'), 'origin'=> '39', 'destination'=>$idcity, 'weight'=>$berat, 'courier'=>$kurir]);
             if($response->successful()){
                 $data = json_decode($response->body());
                 return $data->rajaongkir->results[0]->costs;
